@@ -10,7 +10,6 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
-[assembly: AllowPartiallyTrustedCallers]
 namespace ConsoleApplication1
 { 
     public static class WinAPI

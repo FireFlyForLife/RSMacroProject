@@ -1,0 +1,19 @@
+﻿<Window x:Class="RSMacroProgram.GameChooser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RSMacroProgram"
+        mc:Ignorable="d"
+        Title="FireLauncher" Height="122" Width="225.319">
+    <Grid Margin="0">
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Maiko\Dropbox\copy files folder\big-beautiful-flame-ppt-backgrounds-powerpoint.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <ComboBox x:Name="gameChooser" HorizontalAlignment="Left" Height="25" Margin="56,12,0,0" VerticalAlignment="Top" Width="145" SelectedIndex="0"/>
+        <Label x:Name="lblChoose" Content="Game:" HorizontalAlignment="Left" Height="26" Margin="5,10,0,0" VerticalAlignment="Top" Width="51" Foreground="White"/>
+        <Button x:Name="launchButton" Content="Launch!" HorizontalAlignment="Right" Height="25" Margin="0,0,20,10" VerticalAlignment="Bottom" Width="80" Click="launchGame" ToolTip="Launch and continue"/>
+        <Button x:Name="skipButton" Content="Continue" HorizontalAlignment="Left" Height="25" Margin="20,0,0,10" VerticalAlignment="Bottom" Width="77" Click="go" ToolTip="Continue without launching the game"/>
+
+    </Grid>
+</Window>

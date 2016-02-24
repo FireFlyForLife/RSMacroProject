@@ -1,0 +1,52 @@
+﻿<Window x:Class="RSMacroProgram.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RSMacroProgram"
+        mc:Ignorable="d"
+        Title="FireLauncher" Height="350" Width="500">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem x:Name="gameMenu" Header="_Game" />
+                <MenuItem x:Name="scriptMenu" Header="Script" Click="scriptMenu_Click">
+                    <MenuItem x:Name="chooseScript" Header="Choose" InputGestureText="Ctrl+O" Click="chooseScript_Click"/>
+                    <MenuItem x:Name="stopScript" Header="Stop" IsEnabled="False" InputGestureText="Ctrl+Q" Click="stopScript_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="rsAccountMenu" Header="Login" >
+                    <MenuItem x:Name="rsLogin" Header="Login" Click="rsLogin_Click" />
+                    <MenuItem x:Name="rsName" Header="Username: " />
+                    <MenuItem x:Name="rsPassword" Header="Password: " />
+                </MenuItem>
+                <MenuItem x:Name="testMenu" Header="Test" Click="TestHandler" />
+                
+
+            </Menu>
+        </DockPanel>
+        <TextBox x:Name="consoleOutput" HorizontalAlignment="Left" Height="109" Margin="10,0,0,10" TextWrapping="Wrap" Text="Console Output: " VerticalAlignment="Bottom" Width="472" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"/>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="200" Margin="0,25,10,0">
+            <Canvas x:Name="processCanvas" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
+                <Button x:Name="selectProcess" Content="Select Process" Click="selectTheProcess" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top" Width="88" Canvas.Left="100" Canvas.Top="60"/>
+                <ComboBox x:Name="processSelectBox" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" Width="180" Canvas.Left="8" Margin="0" Canvas.Top="30"/>
+                <Button x:Name="refreshProcess" Content="Refresh" Click="refreshProcesses" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top" Width="84" Canvas.Left="8" Canvas.Top="60"/>
+                <Label x:Name="lblProc" Content="Process:" Height="25" Canvas.Left="8" Canvas.Top="5" Width="175"/>
+            </Canvas>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="158" Margin="10,25,0,0" VerticalAlignment="Top" Width="220" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="infoStackPanel">
+                    <Label x:Name="lblStats" Content="Information" HorizontalAlignment="Center" Height="25" Margin="0" VerticalAlignment="Top" Width="64" FontWeight="Bold"/>
+                    <Label x:Name="lblGame" Content="Game: " Margin="0"/>
+                    <Label x:Name="lblScript" Content="Script: " Margin="0"/>
+                    <Label x:Name="lblAuthor" Content="Author: "/>
+                    <Label x:Name="lblDesc" Content="Description: "/>
+                </StackPanel>
+            </ScrollViewer>
+            
+        </Border>
+
+
+    </Grid>
+</Window>

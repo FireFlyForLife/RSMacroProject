@@ -28,8 +28,7 @@ namespace RSMacroProgram
         
         private Hooking() {
             hookIDs = new List<HookInfo>();
-            hookCallbackThread = new Thread(keepAlive)
-;
+
             mouseHook = new HookInfo();
             mouseHook.callback = clearMouseLLInjectedFlag;
             mouseHook.hID = Win32.HookingIDs.WH_Mouse_LL;
@@ -43,12 +42,6 @@ namespace RSMacroProgram
             hookIDs.CopyTo(h);
             foreach(HookInfo hook in h) {
                 removeHook(hook.hookID);
-            }
-        }
-
-        private void keepAlive() {
-            while (true) {
-                System.Windows.Application.Current.Run();
             }
         }
 
@@ -143,7 +136,7 @@ namespace RSMacroProgram
         //}
 
         private IntPtr clearMouseLLInjectedFlag(int nCode, IntPtr wParam, IntPtr lParam) {
-            //Console.WriteLine("Mouse callback called");
+            Console.WriteLine("Mouse callback called");
 
             //if (lParam != IntPtr.Zero) {
             //    Win32.MSLLHOOKSTRUCT str = Marshal.PtrToStructure<Win32.MSLLHOOKSTRUCT>(lParam);

@@ -325,6 +325,10 @@ namespace RSMacroProgram.Api
             //move the mouse
             int sX = Configuration.screen.X + x;
             int sY = Configuration.screen.Y + y;
+            if (Configuration.HasAdBanner) {
+                sX += (Configuration.screen.Width - Configuration.AdBanner.Width) / 2;
+                sY += (Configuration.screen.Height - Configuration.AdBanner.Height) / 2;
+            }
             Console.WriteLine("Moved mouse to: " + sX.ToString() + "," + sY.ToString());
             
             return accessApi.Move(sX, sY); ;

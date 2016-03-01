@@ -119,7 +119,8 @@ namespace RSMacroProgram.Api.OSRS
             Point topLeft = new Point(Configuration.OSRS.viewport.Right - FromBottomRightToFirstSlot.X, 
                 Configuration.OSRS.viewport.Bottom - FromBottomRightToFirstSlot.Y);
 
-            return new Rectangle(topLeft.X + slotCoordinate.X * slotSize + slotCoordinate.Y * margin.Width, 
+            return new Rectangle(
+                topLeft.X + slotCoordinate.X * slotSize + slotCoordinate.Y * margin.Width, 
                 topLeft.Y + slotCoordinate.Y * slotSize + slotCoordinate.Y * margin.Height,
                 slotSize,
                 slotSize);

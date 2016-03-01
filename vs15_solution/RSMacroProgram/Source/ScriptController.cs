@@ -121,8 +121,6 @@ namespace RSMacroProgram
                 }
                 new Thread(() => mainClass.dispose()).Start();
             }
-
-
         }
 
         public void setScript(String pathToAssembly) {

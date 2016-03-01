@@ -66,7 +66,7 @@ namespace anAssembly
 
             Thread.Sleep(1000);
 
-            Point vpTopLeft = new Point(config.rsScreen.Location.X + config.viewport.Location.X, config.rsScreen.Location.Y + config.viewport.Location.Y) ;
+            Point vpTopLeft = new Point(config.viewport.Location.X, config.viewport.Location.Y) ;
             os.mouse.Move(vpTopLeft);
 
             Thread.Sleep(1000);

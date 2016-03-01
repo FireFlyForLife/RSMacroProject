@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api.Source
+namespace RSMacroProgram.Api
 {
-    class Api
-    {
-    }
+    
 }

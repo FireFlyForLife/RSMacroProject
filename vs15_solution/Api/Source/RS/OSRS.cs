@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api.Source.RS
+namespace RSMacroProgram.Api
 {
-    class OSRS
-    {
-    }
+
 }

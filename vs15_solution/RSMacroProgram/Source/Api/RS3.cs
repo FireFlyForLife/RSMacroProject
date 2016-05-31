@@ -10,15 +10,15 @@ using Point = RSMacroProgram.Api.Type.Point;
 
 namespace RSMacroProgram.Api.RS3
 {
-    [Serializable]
-    public class RS3Api : BaseApi
-    {
-        public readonly Inventory inventory;
+    //[Serializable]
+    //public class RS3Api : BaseApi
+    //{
+    //    public readonly Inventory inventory;
 
-        public RS3Api(InterractionObject api) : base(api) {
-            inventory = Inventory.get;
-        }
-    }
+    //    public RS3Api(InterractionObject api) : base(api) {
+    //        inventory = Inventory.get;
+    //    }
+    //}
 
     [Serializable]
     public class Inventory : Paintable

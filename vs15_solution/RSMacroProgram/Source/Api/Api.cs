@@ -15,27 +15,53 @@ using Point = RSMacroProgram.Api.Type.Point;
 using System.Runtime.InteropServices;
 using RSMacroProgram.Api.Exceptions;
 using System.Diagnostics;
+using RSMacroProgramApi.MacroApi.RS;
+using RSMacroProgramApi.MacroApi.Generic;
 
 namespace RSMacroProgram.Api
 {
-    [Serializable]
-    public abstract class BaseApi
-    {
-        public InterractionObject api;
-        public VirtualMouse mouse;
-        public VirtualKeyboard keyboard;
+    //[Serializable]
+    //public abstract class BaseApi
+    //{
+    //    public InterractionObject api;
+    //    public VirtualMouse mouse;
+    //    public VirtualKeyboard keyboard;
 
-        public BaseApi(InterractionObject api) {
-            this.api = api;
-            mouse = new VirtualMouse(api);
-            keyboard = new VirtualKeyboard(api);
-        }
-    }
+    //    public BaseApi(InterractionObject api) {
+    //        this.api = api;
+    //        mouse = new VirtualMouse(api);
+    //        keyboard = new VirtualKeyboard(api);
+    //    }
+    //}
 
     public sealed class DataAccessObject : MarshalByRefObject
     {
+        OSRS osrsInstance;
+        RS3 rs3Instance;
+
         internal DataAccessObject() {
-            
+            SecurityPermission perm = new SecurityPermission(PermissionState.Unrestricted);
+            perm.Demand();
+        }
+
+        public OSRS osrs
+        {
+            internal set { osrsInstance = value; }
+            get {
+                if (osrsInstance == null)
+                    osrsInstance = new OSRS();
+                return osrsInstance;
+            }
+        }
+
+        public RS3 rs3
+        {
+            internal set { rs3Instance = value; }
+            get {
+                if (rs3Instance == null)
+                    rs3Instance = new RS3();
+                return rs3Instance;
+            }
         }
 
         public Size AdBanner {
@@ -47,7 +73,7 @@ namespace RSMacroProgram.Api
             get { return Configuration.game; }
         }
 
-        public Rectangle rsScreen {
+        public Rectangle TargetWindow {
             internal set { Configuration.screen = value; }
             get { return Configuration.screen; }
         }
@@ -57,30 +83,76 @@ namespace RSMacroProgram.Api
             get { return Configuration.HasAdBanner; }
         }
 
-        public Size NonResizableViewport { get { return Configuration.OSRS.NonResizableViewport; } }
-        public bool resizable { get { return Configuration.OSRS.resizable; } }
-        public Rectangle viewport {
-            get { return Configuration.OSRS.viewport; }
-        }
+        //public Size NonResizableViewport { get { return Configuration.OSRS.NonResizableViewport; } }
+        //public bool resizable { get { return Configuration.OSRS.resizable; } }
+        //public Rectangle viewport {
+        //    get { return Configuration.OSRS.viewport; }
+        //}
 
-        private class OSRS
+        public sealed class OSRS : MarshalByRefObject
         {
+            internal OSRS() {
+                SecurityPermission perm = new SecurityPermission(PermissionState.Unrestricted);
+                perm.Demand();
+            }
+
             public Size NonResizableViewport { get { return Configuration.OSRS.NonResizableViewport; } }
             public bool resizable { get { return Configuration.OSRS.resizable; } }
             public Rectangle viewport {
                 get { return Configuration.OSRS.viewport; }
             }
         }
+
+        public sealed class RS3 : MarshalByRefObject
+        {
+            internal RS3() {
+                SecurityPermission perm = new SecurityPermission(PermissionState.Unrestricted);
+                perm.Demand();
+            }
+
+
+        }
     }
 
-    public sealed class InterractionObject : MarshalByRefObject 
+    public sealed class InterractionObject : MarshalByRefObject, IInterractionObject 
     {
+        public Size AdBanner
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public RSGame game
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Rectangle TargetWindow
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool HasAdBanner
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         /// <summary>
         /// Creates a base Api, this is the building block from which all the other apis need the interraction methods.
-        /// You cannot create this object from a script, it is supplied to you in the 'api' propperty
+        /// You cannot create this object from a script, it is supplied to you in the 'api' property
         /// </summary>
-        /// <exception cref="System.Security.SecurityException" cref="RSMacroProgram.Api.Exceptions.HookingException" />
+        /// <exception cref="System.Security.SecurityException"/>
         internal InterractionObject() {
             SecurityPermission perm = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
             perm.Demand();
@@ -131,6 +203,30 @@ namespace RSMacroProgram.Api
             return b;
         }
 
+        RSMacroProgramApi.MacroApi.Generic.Point IInterractionObject.MousePosition() {
+            throw new NotImplementedException();
+        }
+
+        public bool Click(int key) {
+            throw new NotImplementedException();
+        }
+
+        public bool MousePress(int key) {
+            throw new NotImplementedException();
+        }
+
+        public bool MouseRelease(int key) {
+            throw new NotImplementedException();
+        }
+
+        public bool PressKey(char c) {
+            throw new NotImplementedException();
+        }
+
+        public bool ReleaseKey(char c) {
+            throw new NotImplementedException();
+        }
+
         /*private static Standard standardInstance = new Standard();
         public static Standard standard {
             get { return standardInstance; }
@@ -147,8 +243,41 @@ namespace RSMacroProgram.Api
         }*/
     }
 
-    internal class Configuration
+    public static class Configuration
     {
+        #region Singleton
+        //private static Configuration instance = new Configuration();
+        //public static Configuration general
+        //{
+        //    get
+        //    {
+        //        return instance;
+        //    }
+        //}
+
+        //private static OSRS osrsInstance;
+        //public static OSRS osrs
+        //{
+        //    get
+        //    {
+        //        if (osrsInstance == null)
+        //            osrsInstance = new OSRS();
+        //        return osrsInstance;
+        //    }
+        //}
+
+        //private static RS3 rs3Instance;
+        //public static RS3 rs3
+        //{
+        //    get
+        //    {
+        //        if (rs3Instance == null)
+        //            rs3Instance = new RS3();
+        //        return rs3Instance;
+        //    }
+        //}
+        #endregion
+
         #region Constants
         public static readonly Size AdBanner = new Size(761, 96);
         #endregion
@@ -195,6 +324,16 @@ namespace RSMacroProgram.Api
             }
             #endregion
         }
+
+        public sealed class RS3
+        {
+            #region Constants
+
+            #endregion
+            #region Variables
+
+            #endregion
+        }
     }
 
     /// <summary>
@@ -202,189 +341,189 @@ namespace RSMacroProgram.Api
     /// <seealso cref="AutoScript.api"/> and: 
     /// <seealso cref="AutoScript.config"/>
     /// </summary>
-    public abstract class AutoScript
-    {
-        private InterractionObject apiInstance;
-        private DataAccessObject configInstance;
+    //public abstract class AutoScript
+    //{
+    //    private InterractionObject apiInstance;
+    //    private DataAccessObject configInstance;
 
-        public InterractionObject api {
-            set {
-                if (apiInstance == null) 
-                    apiInstance = value;
-            }
+    //    public InterractionObject api {
+    //        set {
+    //            if (apiInstance == null) 
+    //                apiInstance = value;
+    //        }
 
-            get {
-                return apiInstance;
-            }
-        }
+    //        get {
+    //            return apiInstance;
+    //        }
+    //    }
 
-        public DataAccessObject config {
-            set {
-                if (configInstance == null)
-                    configInstance = value;
-            }
+    //    public DataAccessObject config {
+    //        set {
+    //            if (configInstance == null)
+    //                configInstance = value;
+    //        }
 
-            get {
-                return configInstance;
-            }
-        }
+    //        get {
+    //            return configInstance;
+    //        }
+    //    }
 
-        /// <summary>
-        /// This method is called at first and needs to returned for start() to be called.
-        /// </summary>
-        public abstract void init();
+    //    /// <summary>
+    //    /// This method is called at first and needs to returned for start() to be called.
+    //    /// </summary>
+    //    public abstract void init();
 
-        /// <summary>
-        /// This method is called after init() has returned and does not have to return for other methods to be called.
-        /// </summary>
-        public abstract void start();
+    //    /// <summary>
+    //    /// This method is called after init() has returned and does not have to return for other methods to be called.
+    //    /// </summary>
+    //    public abstract void start();
 
-        /// <summary>
-        /// This method is continuesly called. After it is returned a 100 ms delay is added to prevent overloading. 
-        /// </summary>
-        public abstract void tick();
+    //    /// <summary>
+    //    /// This method is continuesly called. After it is returned a 100 ms delay is added to prevent overloading. 
+    //    /// </summary>
+    //    public abstract void tick();
 
-        /// <summary>
-        /// This method is called when you script needs to stop. The program does not wait until this method has returned.
-        /// </summary>
-        public abstract void dispose();
-    }
+    //    /// <summary>
+    //    /// This method is called when you script needs to stop. The program does not wait until this method has returned.
+    //    /// </summary>
+    //    public abstract void dispose();
+    //}
 
-    [AttributeUsage(AttributeTargets.Class)]
-    public class ScriptAttributes : Attribute
-    {
-        public String name { private set; get; }
-        public String description { private set; get; }
-        public String version { private set; get; }
-        public String author { private set; get; }
-        public bool pausable { private set; get; }
+    //[AttributeUsage(AttributeTargets.Class)]
+    //public class ScriptAttribute : Attribute
+    //{
+    //    public String name { private set; get; }
+    //    public String description { private set; get; }
+    //    public String version { private set; get; }
+    //    public String author { private set; get; }
+    //    public bool pausable { private set; get; }
 
-        public ScriptAttributes(String Name, String Description, String Version = "0.1", String Author = "", bool Pausable = false) {
-            this.name = Name;
-            this.description = Description;
-            this.version = Version;
-            this.author = Author;
-            this.pausable = pausable;
-        }
-    }
+    //    public ScriptAttribute(String Name, String Description, String Version = "0.1", String Author = "", bool Pausable = false) {
+    //        this.name = Name;
+    //        this.description = Description;
+    //        this.version = Version;
+    //        this.author = Author;
+    //        this.pausable = pausable;
+    //    }
+    //}
 
-    [Serializable]
-    public class VirtualMouse
-    {
-        //#region Singleton
-        //private static VirtualMouse instance;
-        //public static VirtualMouse get {
-        //    protected set { instance = value; }
-        //    get {
-        //        if (instance == null)
-        //            instance = new VirtualMouse();
-        //        return instance;
-        //    }
-        //}
-        //#endregion
-        private bool clickEnabled;
-        private bool moveEnabled;
+    //[Serializable]
+    //public class VirtualMouse
+    //{
+    //    //#region Singleton
+    //    //private static VirtualMouse instance;
+    //    //public static VirtualMouse get {
+    //    //    protected set { instance = value; }
+    //    //    get {
+    //    //        if (instance == null)
+    //    //            instance = new VirtualMouse();
+    //    //        return instance;
+    //    //    }
+    //    //}
+    //    //#endregion
+    //    private bool clickEnabled;
+    //    private bool moveEnabled;
 
-        private InterractionObject accessApi;
+    //    private InterractionObject accessApi;
 
-        public VirtualMouse(InterractionObject api) {
-            clickEnabled = true;
-            moveEnabled = true;
+    //    public VirtualMouse(InterractionObject api) {
+    //        clickEnabled = true;
+    //        moveEnabled = true;
 
-            accessApi = api;
-        }
+    //        accessApi = api;
+    //    }
 
-        public void Disable() {
-            clickEnabled = false;
-            moveEnabled = false;
-        }
+    //    public void Disable() {
+    //        clickEnabled = false;
+    //        moveEnabled = false;
+    //    }
 
-        public void Enable() {
-            clickEnabled = true;
-            moveEnabled = true;
-        }
+    //    public void Enable() {
+    //        clickEnabled = true;
+    //        moveEnabled = true;
+    //    }
 
-        public bool Click() {
-            if (!clickEnabled)
-                return false;
-            //do the clickening.
-            Console.WriteLine("RMB down");
-            Thread.Sleep(100);
-            Console.WriteLine("RMB up");
+    //    public bool Click() {
+    //        if (!clickEnabled)
+    //            return false;
+    //        //do the clickening.
+    //        Console.WriteLine("RMB down");
+    //        Thread.Sleep(100);
+    //        Console.WriteLine("RMB up");
 
-            return true;
-        }
+    //        return true;
+    //    }
 
-        public bool Move(Point point) {
-            return Move(point.X, point.Y);
-        }
+    //    public bool Move(Point point) {
+    //        return Move(point.X, point.Y);
+    //    }
 
-        public bool Move(int x, int y) {
-            if (!moveEnabled)
-                return false;
-            //move the mouse
-            int sX = Configuration.screen.X + x;
-            int sY = Configuration.screen.Y + y;
-            Console.WriteLine("Moved mouse to: " + sX.ToString() + "," + sY.ToString());
+    //    public bool Move(int x, int y) {
+    //        if (!moveEnabled)
+    //            return false;
+    //        //move the mouse
+    //        int sX = Configuration.screen.X + x;
+    //        int sY = Configuration.screen.Y + y;
+    //        Console.WriteLine("Moved mouse to: " + sX.ToString() + "," + sY.ToString());
             
-            return accessApi.Move(sX, sY); ;
-        }
+    //        return accessApi.Move(sX, sY); ;
+    //    }
 
-        public bool Move(Pointable target) {
-            if (!moveEnabled)
-                return false;
+    //    public bool Move(Pointable target) {
+    //        if (!moveEnabled)
+    //            return false;
 
-            //move the mouse
-            Console.WriteLine("Moving mouse to Pointable: {0}", target);
-            WinAPI.SetCursorPos(target.nextPoint().X, target.nextPoint().Y);
+    //        //move the mouse
+    //        Console.WriteLine("Moving mouse to Pointable: {0}", target);
+    //        WinAPI.SetCursorPos(target.nextPoint().X, target.nextPoint().Y);
             
 
-            return true;
-        }
-    }
+    //        return true;
+    //    }
+    //}
 
-    [Serializable]
-    public class VirtualKeyboard
-    {
-        //#region Singleton
-        //private static VirtualKeyboard instance;
-        //public static VirtualKeyboard get {
-        //    set { instance = value; }
-        //    get {
-        //        if (instance == null)
-        //            instance = new VirtualKeyboard();
-        //        return instance;
-        //    }
-        //}
-        //#endregion
-        private bool canPress;
+    //[Serializable]
+    //public class VirtualKeyboard
+    //{
+    //    //#region Singleton
+    //    //private static VirtualKeyboard instance;
+    //    //public static VirtualKeyboard get {
+    //    //    set { instance = value; }
+    //    //    get {
+    //    //        if (instance == null)
+    //    //            instance = new VirtualKeyboard();
+    //    //        return instance;
+    //    //    }
+    //    //}
+    //    //#endregion
+    //    private bool canPress;
 
-        private InterractionObject accessApi;
+    //    private InterractionObject accessApi;
 
-        public VirtualKeyboard(InterractionObject api) {
-            canPress = true;
+    //    public VirtualKeyboard(InterractionObject api) {
+    //        canPress = true;
 
-            accessApi = api;
-        }
+    //        accessApi = api;
+    //    }
 
-        public void Disable() {
-            canPress = false;
-        }
+    //    public void Disable() {
+    //        canPress = false;
+    //    }
 
-        public void Enable() {
-            canPress = true;
-        }
+    //    public void Enable() {
+    //        canPress = true;
+    //    }
 
-        public bool Press(String key, float holdTime = 0.1f) {
-            if (!canPress)
-                return false;
-            //press the keys
-            //SendKeys.Send(key);
-            Console.WriteLine("Pressed key: " + key);
+    //    public bool Press(String key, float holdTime = 0.1f) {
+    //        if (!canPress)
+    //            return false;
+    //        //press the keys
+    //        //SendKeys.Send(key);
+    //        Console.WriteLine("Pressed key: " + key);
 
-            return true;
-        }
-    }
+    //        return true;
+    //    }
+    //}
 
 }
 

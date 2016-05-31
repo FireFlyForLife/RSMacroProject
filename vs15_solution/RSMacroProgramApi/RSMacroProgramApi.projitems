@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e7ee03b1-fa35-46f6-8f48-c9a0cd3a4184</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>RSMacroProgramApi</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\AbstractScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\AutoScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\DependencyInterfaces.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\Point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\ScriptAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\VirtualKeyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\VirtualMouse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\OSRS\Inventory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\OSRS\OSRSScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\RS3\RS3Script.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\RSGame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)MacroApi\TODO.txt" />
+  </ItemGroup>
+</Project>

@@ -11,6 +11,7 @@ using Roslyn.Scripting;
 using Roslyn.Scripting.CSharp;
 using Plasmoid.Extensions;
 using RSMacroProgram.Api;
+using RSMacroProgramApi.MacroApi.RS;
 
 namespace RSMacroProgram
 {

@@ -11,15 +11,15 @@ using RSMacroProgram.Api;
 
 namespace RSMacroProgram.Api.OSRS
 {
-    [Serializable]
-    public class OSRSApi : RSMacroProgram.Api.BaseApi
-    {
-        public readonly Inventory inventory;
+    //[Serializable]
+    //public class OSRSApi : RSMacroProgram.Api.BaseApi
+    //{
+    //    public readonly Inventory inventory;
 
-        public OSRSApi(InterractionObject api) : base(api) {
-            inventory = new Inventory(api);
-        }
-    }
+    //    public OSRSApi(InterractionObject api) : base(api) {
+    //        inventory = new Inventory(api);
+    //    }
+    //}
 
     //public static class Configuration
     //{

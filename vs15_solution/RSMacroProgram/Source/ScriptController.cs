@@ -14,6 +14,7 @@ using RSMacroProgram.Api;
 using System.Security;
 using System.Security.Permissions;
 using System.Windows.Interop;
+using RSMacroProgramApi.MacroApi.Generic;
 
 namespace RSMacroProgram
 {
@@ -22,7 +23,7 @@ namespace RSMacroProgram
         private MacroMain main;
         private ScriptInformation sInfo;
 
-        private const bool debug = false;
+        private const bool debug = true;
         private Hotkey_WPF stopHotkey;
 
         /*private String assemblyName;
@@ -39,7 +40,7 @@ namespace RSMacroProgram
 
             stopHotkey = new Hotkey_WPF(System.Windows.Forms.Keys.Q, false, true, false, false);
             stopHotkey.Pressed += (object sender, System.ComponentModel.HandledEventArgs e) => setScript(null);
-            stopHotkey.Register(main.window);
+            //stopHotkey.Register(main.window);
         }
 
         private void Search() {
@@ -59,9 +60,9 @@ namespace RSMacroProgram
             try {
                 foreach (Type t in searchableAssembly.GetTypes()) {
                     Console.WriteLine(t);
-                    if (t.IsSubclassOf(typeof(AutoScript))) {
+                    if (t.IsSubclassOf(typeof(AbstractScript))) {
                         Console.WriteLine("Found a class extending AutoScript: " + t.FullName);
-                        sInfo.attribute = (ScriptAttributes)Attribute.GetCustomAttribute(t, typeof(ScriptAttributes));
+                        sInfo.attribute = (ScriptAttribute)Attribute.GetCustomAttribute(t, typeof(ScriptAttribute));
                         if (sInfo.attribute != null) {
                             Console.WriteLine("The class uses ScriptAttributes, name is: {0}", sInfo.attribute.name);
                             return t;
@@ -84,7 +85,6 @@ namespace RSMacroProgram
             environment.Register(sInfo.assemblyPath);
 
             InterractionObject accessApi = new InterractionObject();
-            DataAccessObject dataAccess = new DataAccessObject();
 
             using (var jail = Jail.Create(isolator, environment)) {
                 var watch = new Stopwatch();
@@ -92,7 +92,7 @@ namespace RSMacroProgram
                 main.window.updateScriptInfo(localSInfo);
                 dynamic mainClass = jail.Resolve(sInfo.mainScript.FullName);
                 mainClass.api = accessApi;
-                mainClass.config = dataAccess;
+                //mainClass.config = dataAccess;
                 //localSInfo.mainClass = mainClass;
 
                 new RunUntil(() => mainClass.init(), delegate () { return localSInfo.run; });
@@ -164,7 +164,7 @@ namespace RSMacroProgram
         public String assemblyPath = "";
         public Type mainScript = null;
         public Type apiType = null;
-        public ScriptAttributes attribute = null;
+        public ScriptAttribute attribute = null;
         public Assembly assembly = null;
         public bool run = true;
 

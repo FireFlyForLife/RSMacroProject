@@ -10,9 +10,9 @@ namespace RSMacroProgramApi.MacroApi.Generic
         private bool clickEnabled;
         private bool moveEnabled;
 
-        private IInterractionObject accessApi;
+        private IInteractionObject accessApi;
 
-        public VirtualMouse(IInterractionObject api) {
+        public VirtualMouse(IInteractionObject api) {
             clickEnabled = true;
             moveEnabled = true;
 

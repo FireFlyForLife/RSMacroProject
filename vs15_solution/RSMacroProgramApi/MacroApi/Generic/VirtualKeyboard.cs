@@ -9,9 +9,9 @@ namespace RSMacroProgramApi.MacroApi.Generic
     {
         private bool canPress;
 
-        private IInterractionObject accessApi;
+        private IInteractionObject accessApi;
 
-        public VirtualKeyboard(IInterractionObject api) {
+        public VirtualKeyboard(IInteractionObject api) {
             canPress = true;
 
             accessApi = api;

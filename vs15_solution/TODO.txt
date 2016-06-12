@@ -1,0 +1,10 @@
+DO:
+Move everything from the shared project api to a class lib
+
+Create:
+A generic Polygon class, could get some code from java's source.
+
+Look into:
+Splitting IInteractionObject into different interfaces
+Create a base class like RSBots "ClientAccesor"
+	Could be called ApiObject/ApiAccesor

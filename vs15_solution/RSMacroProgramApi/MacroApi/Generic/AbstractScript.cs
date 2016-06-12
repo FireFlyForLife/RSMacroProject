@@ -4,11 +4,11 @@ using System.Text;
 
 namespace RSMacroProgramApi.MacroApi.Generic
 {
-    public abstract class AbstractScript
+    public abstract class AbstractScript : IAbstractScript
     {
-        protected IInterractionObject apiInstance;
+        protected IInteractionObject apiInstance;
 
-        public virtual IInterractionObject api
+        public virtual IInteractionObject api
         {
             set
             {
@@ -20,6 +20,13 @@ namespace RSMacroProgramApi.MacroApi.Generic
             {
                 return apiInstance;
             }
+        }
+
+        public IInteractionObject getApi() { return apiInstance; }
+
+        public virtual void _setApi(IInteractionObject newApi) {
+            Console.WriteLine("_setApi in AbstractScript");
+            apiInstance = newApi;
         }
 
         /// <summary>

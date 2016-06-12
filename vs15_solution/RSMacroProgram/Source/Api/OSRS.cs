@@ -6,8 +6,9 @@ using Plasmoid.Extensions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Point = RSMacroProgram.Api.Type.Point;
+using Point = RSMacroProgramApi.MacroApi.Generic.Point;
 using RSMacroProgram.Api;
+using RSMacroProgramApi.MacroApi.Generic;
 
 namespace RSMacroProgram.Api.OSRS
 {
@@ -70,9 +71,9 @@ namespace RSMacroProgram.Api.OSRS
         private bool opened = true;
         private Random random;
 
-        private InterractionObject accessApi;
+        private IInteractionObject accessApi;
 
-        public Inventory(InterractionObject api) {
+        public Inventory(IInteractionObject api) {
             random = new Random();
             accessApi = api;
         }
@@ -145,7 +146,7 @@ namespace RSMacroProgram.Api.OSRS
             bool result;
 
             result = accessApi.Move(Configuration.screen.X + x + random.Next(0, Icon.Width), Configuration.screen.Y - y + random.Next(0, Icon.Height));
-            result = accessApi.Click() && result;
+            result = accessApi.Click(0) && result;
 
             opened = result;
         }

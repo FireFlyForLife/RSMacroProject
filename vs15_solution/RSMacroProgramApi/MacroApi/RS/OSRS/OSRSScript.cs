@@ -11,7 +11,7 @@ namespace RSMacroProgramApi.MacroApi.RS.OSRS
         //TODO: what instances do I need here?
         public Inventory inventory;
 
-        public override IInterractionObject api
+        public override IInteractionObject api
         {
             get
             {

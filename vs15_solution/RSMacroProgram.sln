@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMacroProgram", "RSMacroProgram\RSMacroProgram.csproj", "{37ADDA2D-DBED-461E-8462-B84B854C1E4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B00E4C9-B3F8-40AE-B871-AEB71873FF90}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\..\Pictures\big-beautiful-flame-ppt-backgrounds-powerpoint.jpg = ..\..\..\..\Pictures\big-beautiful-flame-ppt-backgrounds-powerpoint.jpg
+		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anAssembly", "anAssembly\anAssembly.csproj", "{8D7251F3-A0C1-405D-BBEF-AAC6FC37CAF0}"

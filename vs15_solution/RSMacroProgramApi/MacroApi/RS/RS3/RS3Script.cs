@@ -9,7 +9,7 @@ namespace RSMacroProgramApi.MacroApi.RS.RS3
     {
         //TODO: what instances do I need here?
 
-        public override IInterractionObject api
+        public override IInteractionObject api
         {
             get
             {

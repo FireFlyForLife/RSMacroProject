@@ -6,33 +6,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 using RSMacroProgram.Api.Type.Extentions;
+using RSMacroProgramApi.MacroApi.Generic;
+using Point = RSMacroProgramApi.MacroApi.Generic.Point;
 
 namespace RSMacroProgram.Api.Type
 {
-    public interface Paintable
-    {
-        void paint(Graphics g);
-    }
+    //public interface Paintable
+    //{
+    //    void paint(Graphics g);
+    //}
 
-    public interface Clickable
-    {
-        void Click();
-    }
+    //public interface Clickable
+    //{
+    //    void Click();
+    //}
 
-    public interface Pointable
-    {
-        Point nextPoint();
-    }
+    //public interface Pointable
+    //{
+    //    Point nextPoint();
+    //}
 
-    public interface Openable
-    {
-        void Open();
-    }
+    //public interface Openable
+    //{
+    //    void Open();
+    //}
 
-    public interface Closeable
-    {
-        void Close();
-    }
+    //public interface Closeable
+    //{
+    //    void Close();
+    //}
 
     public interface Widget : Paintable, Clickable, Pointable
     {

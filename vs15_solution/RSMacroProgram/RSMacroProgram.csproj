@@ -121,6 +121,7 @@
       <HintPath>..\packages\Jails.Extensions.Roslyn.0.3.0\lib\net45\Jails.Extensions.Roslyn.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Roslyn.Compilers, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
       <Private>True</Private>
@@ -152,6 +153,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Source\Api\Exceptions\NativeExceptions.cs" />
+    <Compile Include="Source\Api\InteractionObject.cs" />
     <Compile Include="Source\Api\OSRS.cs" />
     <Compile Include="Source\Api\RS3.cs" />
     <Compile Include="Source\Api\Type\Types.cs" />
@@ -247,7 +249,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="..\RSMacroProgramApi\RSMacroProgramApi.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -18,12 +18,12 @@ namespace RSMacroProgramApi.MacroApi.RS.OSRS
         public static readonly int slotSize = 31;
         public static readonly Rectangle Icon = new Rectangle(138, 238, 31, 33);
         #endregion
-        IInterractionObject api;
+        IInteractionObject api;
         VirtualMouse mouse;
         private bool opened = true;
         private Random random;
 
-        public Inventory(IInterractionObject api) {
+        public Inventory(IInteractionObject api) {
             this.api = api;
             mouse = new VirtualMouse(api);
             random = new Random();

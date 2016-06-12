@@ -1,12 +1,13 @@
 ﻿using RSMacroProgram.Api;
 using RSMacroProgram.Api.Type;
+using RSMacroProgramApi.MacroApi.Generic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Point = RSMacroProgram.Api.Type.Point;
+using Point = RSMacroProgramApi.MacroApi.Generic.Point;
 
 namespace RSMacroProgram.Api.RS3
 {

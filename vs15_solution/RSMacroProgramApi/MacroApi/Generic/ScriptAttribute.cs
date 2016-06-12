@@ -4,6 +4,7 @@ using System.Text;
 
 namespace RSMacroProgramApi.MacroApi.Generic
 {
+    [Serializable]
     [AttributeUsage(AttributeTargets.Class)]
     public class ScriptAttribute : Attribute
     {

@@ -7,9 +7,9 @@ namespace RSMacroProgramApi.MacroApi.Generic
 {
     public class GameScreen
     {
-        IInterractionObject api;
+        IInteractionObject api;
 
-        public GameScreen(IInterractionObject api) {
+        public GameScreen(IInteractionObject api) {
             this.api = api;
         }
 

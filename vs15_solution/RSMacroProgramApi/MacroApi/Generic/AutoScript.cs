@@ -10,7 +10,7 @@ namespace RSMacroProgramApi.MacroApi.Generic
         public VirtualKeyboard keyboard;
         public GameScreen gameScreen;
 
-        public override IInterractionObject api
+        public override IInteractionObject api
         {
             get
             {
@@ -19,7 +19,7 @@ namespace RSMacroProgramApi.MacroApi.Generic
 
             set
             {
-                if(base.api != null) {
+                if (base.api != null) {
                     base.api = value;
                     mouse = new VirtualMouse(value);
                     keyboard = new VirtualKeyboard(value);
@@ -27,5 +27,14 @@ namespace RSMacroProgramApi.MacroApi.Generic
                 }
             }
         }
+
+            public override void _setApi(IInteractionObject newApi) {
+                Console.WriteLine("_setApi in AutoScript");
+                base._setApi(newApi);
+                mouse = new VirtualMouse(newApi);
+                keyboard = new VirtualKeyboard(newApi);
+                gameScreen = new GameScreen(newApi);
+            }
     }
+    
 }

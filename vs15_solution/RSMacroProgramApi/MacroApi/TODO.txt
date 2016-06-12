@@ -1,3 +1,0 @@
-﻿Look into splitting all IInterractionObject's into other interfaces to make the VirtualMouse classes passable.
-
-Look into creating a similar class to RSBots 'ClientAccesor' to make classes like VirtualMouse a little shorter.

@@ -6,7 +6,8 @@ using System.Text;
 
 namespace RSMacroProgramApi.MacroApi.Generic
 {
-    public interface IInterractionObject
+    //TODO: Add documentation to all the members in IInteractionObject;
+    public interface IInteractionObject
     {
         //I/O
         Point MousePosition();
@@ -20,11 +21,24 @@ namespace RSMacroProgramApi.MacroApi.Generic
         bool ReleaseKey(char c);
 
         //Data access
-        Size AdBanner { get; }
+        Size AdBanner { get; } //TODO: remove this, since it will be available at osrsconstants, and rs3constants
         RSGame game { get; }
         Rectangle TargetWindow { get; }
         bool HasAdBanner { get; }
         
+    }
+
+    public interface IAbstractScript
+    {
+        //IInteractionObject api { get; set; }
+
+        IInteractionObject getApi();
+        void _setApi(IInteractionObject newApi);
+
+        void init();
+        void start();
+        void tick();
+        void dispose();
     }
 
     public interface Paintable

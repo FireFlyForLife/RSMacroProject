@@ -15,6 +15,7 @@ using System.Security;
 using System.Security.Permissions;
 using System.Windows.Interop;
 using RSMacroProgramApi.MacroApi.Generic;
+using RSMacroProgram.Source.Api;
 
 namespace RSMacroProgram
 {
@@ -44,25 +45,38 @@ namespace RSMacroProgram
         }
 
         private void Search() {
-            sInfo.mainScript = getMainClass(sInfo.assembly);
-            if (sInfo.mainScript == null) return;
+            Type abstractScriptType, scriptAttributeType;
+            try {
+                abstractScriptType = sInfo.assembly.GetType(typeof(AbstractScript).FullName, true);
+                scriptAttributeType = sInfo.assembly.GetType(typeof(ScriptAttribute).FullName, true);
+            } catch(Exception ex) {
+                Console.WriteLine("Did not find the AbstractScript or ScriptAttribute classes in script assembly, does the script refrence the api? error: " + ex.GetType().ToString());
+                Console.WriteLine(ex.StackTrace);
+                return;
+            }
 
+            sInfo.mainScript = getMainClass(sInfo.assembly, abstractScriptType, scriptAttributeType);
+            if (sInfo.mainScript == null) {
+                Console.WriteLine("Could not find a main class!");
+                Console.WriteLine("In the assembly located at {0}", sInfo.assemblyPath);
+            } else {
+                var scriptThread = new Thread(new ThreadStart(Run));
+                scriptThread.Start();
+            }
             /*foreach(Type type in sInfo.mainScript.BaseType.GenericTypeArguments) {
                 if( type.IsSubclassOf( typeof(Api) ) ) {
                     apiType = type;
                 }
             }*/
-            var scriptThread = new Thread(new ThreadStart(Run));
-            scriptThread.Start();
         }
 
-        private Type getMainClass(Assembly searchableAssembly) {
+        private Type getMainClass(Assembly searchableAssembly, Type target, Type attribute) {
             try {
                 foreach (Type t in searchableAssembly.GetTypes()) {
                     Console.WriteLine(t);
-                    if (t.IsSubclassOf(typeof(AbstractScript))) {
-                        Console.WriteLine("Found a class extending AutoScript: " + t.FullName);
-                        sInfo.attribute = (ScriptAttribute)Attribute.GetCustomAttribute(t, typeof(ScriptAttribute));
+                    if (t.IsSubclassOf(target)) {
+                        Console.WriteLine("Found a class extending AbstractScript: " + t.FullName);
+                        sInfo.attribute = Attribute.GetCustomAttribute(t, attribute);
                         if (sInfo.attribute != null) {
                             Console.WriteLine("The class uses ScriptAttributes, name is: {0}", sInfo.attribute.name);
                             return t;
@@ -78,42 +92,35 @@ namespace RSMacroProgram
         private void Run() {
             var appOptions = new AppDomainOptions();
             appOptions.Permissions.AddPermission(new SecurityPermission(SecurityPermissionFlag.UnmanagedCode));
-            //appOptions.Permissions.AddPermission(new SecurityPermission(SecurityPermissionFlag.AllFlags));
             
             var isolator = new AppDomainIsolator(appOptions);
             var environment = new DefaultEnvironment();
             environment.Register(sInfo.assemblyPath);
 
-            InterractionObject accessApi = new InterractionObject();
+            InteractionObject accessApi = new InteractionObject();
 
             using (var jail = Jail.Create(isolator, environment)) {
                 var watch = new Stopwatch();
                 var localSInfo = sInfo;
                 main.window.updateScriptInfo(localSInfo);
-                dynamic mainClass = jail.Resolve(sInfo.mainScript.FullName);
-                mainClass.api = accessApi;
-                //mainClass.config = dataAccess;
-                //localSInfo.mainClass = mainClass;
+                IAbstractScript mainClass = jail.Resolve<IAbstractScript>(sInfo.mainScript.FullName);
+
+                mainClass._setApi(null);
 
                 new RunUntil(() => mainClass.init(), delegate () { return localSInfo.run; });
-                //new Thread(() => mainClass.init());
 
                 new Thread(() => mainClass.start()).Start();
-                //localSInfo.mainClass.start();
 
                 while (localSInfo.run) {
                     watch.Start();
 
-                    /*Thread tick = new Thread(() => mainClass.tick());
-                    tick.Start();
-                    while (tick.IsAlive && localSInfo.run) Thread.Sleep(10);*/
                     new RunUntil(() => mainClass.tick(), delegate () { return localSInfo.run; });
 
                     var time = watch.ElapsedMilliseconds;
                     watch.Reset();
 
                     if(debug) Console.WriteLine(time);
-
+                    
                     Thread.Sleep(100);
                     // This will fail since the isolator has not been given
                     // FileIO permissions to that location.
@@ -164,7 +171,7 @@ namespace RSMacroProgram
         public String assemblyPath = "";
         public Type mainScript = null;
         public Type apiType = null;
-        public ScriptAttribute attribute = null;
+        public dynamic attribute = null; //TODO: Properly serialize the ScriptAttribute
         public Assembly assembly = null;
         public bool run = true;
 

@@ -13,16 +13,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\AutoScript.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\DependencyInterfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\Point.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\GameScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\ScriptAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\VirtualKeyboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\Generic\VirtualMouse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\OSRS\Inventory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\OSRS\OSRSConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\OSRS\OSRSScript.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\RS3\RS3Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\RS3\RS3Script.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MacroApi\RS\RSGame.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)MacroApi\TODO.txt" />
   </ItemGroup>
 </Project>

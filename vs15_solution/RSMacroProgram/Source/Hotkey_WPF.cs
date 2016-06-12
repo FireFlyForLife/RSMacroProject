@@ -147,7 +147,9 @@ namespace RSMacroProgram
 
         void PreFilterMessage(ref MSG message, ref bool handled) {
             // Only process WM_HOTKEY messages
-            if (message.message != Hotkey_WPF.WM_HOTKEY) { return; }
+            if (message.message != Hotkey_WPF.WM_HOTKEY) {
+                return;
+            }
 
             // Check that the ID is our key and we are registerd
             if (this.registered && (message.wParam.ToInt32() == this.id)) {

@@ -11,7 +11,7 @@ using RSMacroProgram.Api;
 using WindowPainterLib;
 using System.Security.Permissions;
 using System.Security;
-using Point = RSMacroProgram.Api.Type.Point;
+using Point = RSMacroProgramApi.MacroApi.Generic.Point;
 using System.Runtime.InteropServices;
 using RSMacroProgram.Api.Exceptions;
 using System.Diagnostics;
@@ -114,7 +114,7 @@ namespace RSMacroProgram.Api
         }
     }
 
-    public sealed class InterractionObject : MarshalByRefObject, IInterractionObject 
+    /*public sealed class InterractionObject : MarshalByRefObject, IInteractionObject 
     {
         public Size AdBanner
         {
@@ -203,7 +203,7 @@ namespace RSMacroProgram.Api
             return b;
         }
 
-        RSMacroProgramApi.MacroApi.Generic.Point IInterractionObject.MousePosition() {
+        RSMacroProgramApi.MacroApi.Generic.Point IInteractionObject.MousePosition() {
             throw new NotImplementedException();
         }
 
@@ -240,8 +240,8 @@ namespace RSMacroProgram.Api
         private static RSMacroProgram.Api.RS3.RS3Api RS3Instance = new RSMacroProgram.Api.RS3.RS3Api();
         public static RSMacroProgram.Api.RS3.RS3Api RS3 {
             get { return RS3Instance; }
-        }*/
-    }
+        }
+    }*/
 
     public static class Configuration
     {
@@ -325,7 +325,7 @@ namespace RSMacroProgram.Api
             #endregion
         }
 
-        public sealed class RS3
+        public static class RS3
         {
             #region Constants
 
